@@ -3,7 +3,7 @@ import React from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import {Page} from './components/pages';
 import Home from './views/home';
-//import Users from './views/users';
+import Users from './views/users';
 
 
 function App() {
@@ -15,9 +15,9 @@ function App() {
 						<Route exact path='/'>
 							<Home />
 						</Route>
-						{/* <Route path='/users'>
+						<Route path='/users'>
 							<Users />
-						</Route> */}
+						</Route>
 						<Route path='*'>404</Route>
 					</Switch>
 				</Page>
