@@ -1,7 +1,7 @@
 import React from "react";
 import { Table } from "reactstrap";
 
-function CustomTable({ children }) {
+function CustomTable({ children, handleDelete }) {
   const heads = [
     "ID",
     "Avatar",
@@ -34,7 +34,9 @@ function CustomTable({ children }) {
               <td>{data.first_name}</td>
               <td>{data.last_name}</td>
               <td>{data.email}</td>
-              <td></td>
+              <td>
+                <button onClick={() => handleDelete(data.id)}>Delete</button>
+              </td>
             </tr>
           ))}
         </tbody>

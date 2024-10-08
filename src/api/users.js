@@ -37,8 +37,10 @@ const updateUser = async (userId, userData) => {
 };
 
 const deleteUser = async (userId) =>{
+  console.log(userId)
   try{
     const response =  await instance.delete(`/${userId}`)
+    console.log(response)
     return response.data
   }catch(error){
     console.log("Delete error:", error);
