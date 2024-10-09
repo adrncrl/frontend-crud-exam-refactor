@@ -30,6 +30,7 @@ const createUser = async (userData) => {
 const updateUser = async (userId, userData) => {
   try {
     const response = await instance.put(`/${userId}`, userData);
+    console.log(response)
     return response.data;
   } catch (error) {
     console.log("Update error:", error);
@@ -40,7 +41,6 @@ const deleteUser = async (userId) =>{
   console.log(userId)
   try{
     const response =  await instance.delete(`/${userId}`)
-    console.log(response)
     return response.data
   }catch(error){
     console.log("Delete error:", error);

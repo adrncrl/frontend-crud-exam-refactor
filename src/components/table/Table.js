@@ -1,7 +1,12 @@
 import React from "react";
 import { Table } from "reactstrap";
-
-function CustomTable({ children, handleDelete }) {
+function CustomTable({
+  children,
+  handleEdit,
+  EditModal,
+  handleDelete,
+  DeleteModal,
+}) {
   const heads = [
     "ID",
     "Avatar",
@@ -27,7 +32,7 @@ function CustomTable({ children, handleDelete }) {
               <td>
                 <img
                   src={data.avatar}
-                  alt={`${data.first_name}'s avatar`}
+                  alt={`${data.firs_name}'s avatar`}
                   className="avatar-img"
                 />
               </td>
@@ -35,7 +40,8 @@ function CustomTable({ children, handleDelete }) {
               <td>{data.last_name}</td>
               <td>{data.email}</td>
               <td>
-                <button onClick={() => handleDelete(data.id)}>Delete</button>
+                <DeleteModal userID={data.id} handleDelete={handleDelete} />
+                <EditModal userID={data} handleEdit={handleEdit}/>
               </td>
             </tr>
           ))}

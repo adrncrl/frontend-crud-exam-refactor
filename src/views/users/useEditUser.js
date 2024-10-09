@@ -1,21 +1,23 @@
 import { useState } from "react";
 
-function useDeleteUser(deleteUser, updateUserListAfterDelete) {
+const useEditUser = (editUser, updateUserListAfterEdit) => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const handleClick = async (userID) => {
+  const handleClick = async (userID, formData) => {
+    console.log(userID)
     setSuccess(false);
     setError(null);
     setLoading(true);
 
     try {
-      await deleteUser(userID);
-      updateUserListAfterDelete(userID);
+      const updatedUser = await editUser(userID, formData); 
+      console.log(updatedUser)
+      updateUserListAfterEdit(updatedUser);
       setSuccess(true);
     } catch (error) {
-      console.log("Delete error:", error);
+      console.log("Fetch error:", error);
       setError(error);
     } finally {
       setLoading(false);
@@ -24,10 +26,10 @@ function useDeleteUser(deleteUser, updateUserListAfterDelete) {
 
   return {
     handleClick,
-    success,
-    error,
     loading,
+    error,
+    success,
   };
-}
+};
 
-export default useDeleteUser;
+export default useEditUser;

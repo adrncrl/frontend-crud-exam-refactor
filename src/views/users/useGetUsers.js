@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const useGetUsers = (getUsers, pageNumber) => {
+function useGetUsers(getUsers, pageNumber) {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -19,8 +19,14 @@ const useGetUsers = (getUsers, pageNumber) => {
     }
   };
 
-  const updateUserListAfterDelete = (userId) => {
-    setUsers((prevUsers) => prevUsers.filter((user) => user.id !== userId));
+  const updateUserListAfterEdit = async (updatedUser) => {
+
+    await handleGetUsers(); 
+  };
+
+  const updateUserListAfterDelete = async (userId) => {
+   
+    await handleGetUsers(); 
   };
 
   useEffect(() => {
@@ -32,7 +38,8 @@ const useGetUsers = (getUsers, pageNumber) => {
     loading,
     error,
     updateUserListAfterDelete,
+    updateUserListAfterEdit,
   };
-};
+}
 
 export default useGetUsers;
