@@ -2,36 +2,29 @@ import React, { useState } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import UserForm from "./UserForm";
 
-const UserEditModal = ({ userID, handleEdit }) => {
+const UserCreateModal = ({ handleCreate }) => {
   const [modal, setModal] = useState(false);
 
-  
   const toggle = () => setModal(!modal);
 
   const handleConfirm = async (formData) => {
-    console.log(handleEdit)
-    await handleEdit(userID.id, formData); 
+    await handleCreate(formData);
     setModal(false);
   };
 
   return (
     <div>
       <Button color="primary" onClick={toggle}>
-        Edit
+        Add user
       </Button>
       <Modal isOpen={modal} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Edit User</ModalHeader>
+        <ModalHeader toggle={toggle}>Create User</ModalHeader>
         <ModalBody>
-          <UserForm
-            user={userID}
-            onSubmit={handleConfirm}
-            mode="edit"
-            toggle={toggle}
-          />
+          <UserForm onSubmit={handleConfirm} toggle={toggle} />
         </ModalBody>
       </Modal>
     </div>
   );
 };
 
-export default UserEditModal;
+export default UserCreateModal;

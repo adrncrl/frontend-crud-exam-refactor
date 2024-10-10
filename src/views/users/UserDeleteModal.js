@@ -19,7 +19,7 @@ const UserDeleteModal = ({ userID, handleDelete }) => {
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Delete User</ModalHeader>
         <ModalBody>
-          Are you sure to delete {userID}?
+          Are you sure to delete user: {userID}?
         </ModalBody>
         <ModalFooter>
           <Button color="primary" onClick={() => handleConfirm(userID)}>

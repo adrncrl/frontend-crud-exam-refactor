@@ -1,18 +1,18 @@
 import { useState } from "react";
 
-function useEditUser(editUser, triggerRefetch){
+function useCreateUser(create, triggerRefetch) {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const handleClick = async (userID, formData) => {
+  const handleClick = async (formData) => {
     setSuccess(false);
     setError(null);
     setLoading(true);
 
     try {
-      const updatedUser = await editUser(userID, formData); 
-      triggerRefetch(); 
+      await create(formData);
+      triggerRefetch();
       setSuccess(true);
     } catch (error) {
       console.log("Edit error:", error);
@@ -28,6 +28,6 @@ function useEditUser(editUser, triggerRefetch){
     error,
     success,
   };
-};
+}
 
-export default useEditUser;
+export default useCreateUser;

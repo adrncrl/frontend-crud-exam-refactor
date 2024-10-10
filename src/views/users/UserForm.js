@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { Button, FormGroup, Label, Input } from "reactstrap";
 import serialize from "form-serialize";
+import styles from './styles.module.scss'
 
-const UserForm = ({ user, onSubmit, mode }) => {
+const UserForm = ({ user, onSubmit, mode, toggle }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -47,18 +48,14 @@ const UserForm = ({ user, onSubmit, mode }) => {
           required
         />
       </FormGroup>
-      <FormGroup>
-        <Label for="avatar">Avatar URL</Label>
-        <Input
-          type="text"
-          name="avatar"
-          id="avatar"
-          defaultValue={user?.avatar || ""}
-        />
-      </FormGroup>
-      <Button type="submit" color="primary">
-        {mode === "edit" ? "Update User" : "Create User"}
-      </Button>
+      <div className={styles['action-wrapper']}>
+        <Button type="submit" color="primary">
+          {mode === "edit" ? "Update User" : "Create User"}
+        </Button>
+        <Button color="secondary" onClick={toggle}>
+          Cancel
+        </Button>
+      </div>
     </form>
   );
 };

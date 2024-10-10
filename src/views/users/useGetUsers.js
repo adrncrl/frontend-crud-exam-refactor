@@ -1,41 +1,34 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
-function useGetUsers(getUsers, pageNumber) {
+const useGetUsers = (getList, currentPage, itemsPerPage) => {
   const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [actionKey, setActionKey] = useState(0);  
+  const [totalPages, setTotalPages] = useState(1);
 
-
-  const handleGetUsers = async () => {
+  const fetchUsers = async () => {
     setLoading(true);
+    setError(null);
+
     try {
-      const usersData = await getUsers(pageNumber);
-      setUsers(usersData);
-      setError(null);
+      const response = await getList({ page: currentPage, per_page: itemsPerPage });
+      const { data, total_pages } = response;
+      setUsers(data);
+      setTotalPages(total_pages);
     } catch (err) {
-      console.log("Fetch error:", err);
       setError(err);
+      console.error("Error fetching users:", err);
     } finally {
       setLoading(false);
     }
   };
 
-
-  const triggerRefetch = () => {
-    setActionKey(prevKey => prevKey + 1);  
-  };
-
+  // Use effect to fetch users on mount and when pagination changes
   useEffect(() => {
-    handleGetUsers();
-  }, [pageNumber, actionKey]);  
+    fetchUsers();
+  }, [currentPage, itemsPerPage]);
 
-  return {
-    users,
-    loading,
-    error,
-    triggerRefetch,  
-  };
-}
+  return { users, loading, error, totalPages, refetch: fetchUsers };
+};
 
 export default useGetUsers;

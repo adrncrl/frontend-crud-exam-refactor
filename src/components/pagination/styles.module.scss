@@ -1,0 +1,25 @@
+.pagination-container {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
+  padding: 10px 20px;
+}
+
+.limit-selector {
+  display: flex;
+  align-items: center;
+  
+  span {
+    margin-right: 10px;
+    font-weight: 500;
+  }
+
+  select {
+    width: 80px;
+  }
+}
+
+.pagination-controls {
+  margin: 0;
+  padding: 0;
+}

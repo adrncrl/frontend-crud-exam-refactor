@@ -13,7 +13,7 @@ function useDeleteUser(deleteUser, triggerRefetch) {
     try {
       await deleteUser(userID);
       setSuccess(true);
-      triggerRefetch(); 
+      triggerRefetch();  // Call refetch after successful delete
     } catch (error) {
       console.log("Delete error:", error);
       setError(error);
