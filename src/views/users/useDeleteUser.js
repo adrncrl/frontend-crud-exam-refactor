@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function useDeleteUser(deleteUser, updateUserListAfterDelete) {
+function useDeleteUser(deleteUser, triggerRefetch) {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -12,8 +12,8 @@ function useDeleteUser(deleteUser, updateUserListAfterDelete) {
 
     try {
       await deleteUser(userID);
-      updateUserListAfterDelete(userID);
       setSuccess(true);
+      triggerRefetch(); 
     } catch (error) {
       console.log("Delete error:", error);
       setError(error);

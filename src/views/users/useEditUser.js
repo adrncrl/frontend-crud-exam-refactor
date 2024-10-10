@@ -1,12 +1,11 @@
 import { useState } from "react";
 
-const useEditUser = (editUser, updateUserListAfterEdit) => {
+function useEditUser(editUser, triggerRefetch){
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const handleClick = async (userID, formData) => {
-    console.log(userID)
     setSuccess(false);
     setError(null);
     setLoading(true);
@@ -14,10 +13,10 @@ const useEditUser = (editUser, updateUserListAfterEdit) => {
     try {
       const updatedUser = await editUser(userID, formData); 
       console.log(updatedUser)
-      updateUserListAfterEdit(updatedUser);
+      triggerRefetch(); 
       setSuccess(true);
     } catch (error) {
-      console.log("Fetch error:", error);
+      console.log("Edit error:", error);
       setError(error);
     } finally {
       setLoading(false);

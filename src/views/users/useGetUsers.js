@@ -4,6 +4,8 @@ function useGetUsers(getUsers, pageNumber) {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [actionKey, setActionKey] = useState(0);  
+
 
   const handleGetUsers = async () => {
     setLoading(true);
@@ -19,26 +21,20 @@ function useGetUsers(getUsers, pageNumber) {
     }
   };
 
-  const updateUserListAfterEdit = async (updatedUser) => {
 
-    await handleGetUsers(); 
-  };
-
-  const updateUserListAfterDelete = async (userId) => {
-   
-    await handleGetUsers(); 
+  const triggerRefetch = () => {
+    setActionKey(prevKey => prevKey + 1);  
   };
 
   useEffect(() => {
     handleGetUsers();
-  }, [pageNumber]);
+  }, [pageNumber, actionKey]);  
 
   return {
     users,
     loading,
     error,
-    updateUserListAfterDelete,
-    updateUserListAfterEdit,
+    triggerRefetch,  
   };
 }
 
