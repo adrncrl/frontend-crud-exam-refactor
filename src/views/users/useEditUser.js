@@ -11,7 +11,7 @@ function useEditUser(editUser, triggerRefetch){
     setLoading(true);
 
     try {
-      const updatedUser = await editUser(userID, formData); 
+      await editUser(userID, formData); 
       triggerRefetch(); 
       setSuccess(true);
     } catch (error) {

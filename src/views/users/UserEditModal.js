@@ -5,12 +5,11 @@ import UserForm from "./UserForm";
 const UserEditModal = ({ userID, handleEdit }) => {
   const [modal, setModal] = useState(false);
 
-  
   const toggle = () => setModal(!modal);
 
   const handleConfirm = async (formData) => {
-    console.log(handleEdit)
-    await handleEdit(userID.id, formData); 
+    console.log(handleEdit);
+    await handleEdit(userID.id, formData);
     setModal(false);
   };
 

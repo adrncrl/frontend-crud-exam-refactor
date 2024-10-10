@@ -9,7 +9,7 @@ const usePagination = (defaultPage = 1, defaultLimit = 10) => {
 
   const updateUrlParams = (page, per_page) => {
     const newParams = { page, per_page };
-    setSearchParams(newParams);
+    setSearchParams(...newParams);
   };
 
   const handlePageChange = (page) => {

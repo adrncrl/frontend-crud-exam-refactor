@@ -23,7 +23,6 @@ const useGetUsers = (getList, currentPage, itemsPerPage) => {
     }
   };
 
-  // Use effect to fetch users on mount and when pagination changes
   useEffect(() => {
     fetchUsers();
   }, [currentPage, itemsPerPage]);

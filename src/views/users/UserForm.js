@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Button, FormGroup, Label, Input } from "reactstrap";
 import serialize from "form-serialize";
-import styles from './styles.module.scss'
+import styles from "./styles.module.scss";
 
 const UserForm = ({ user, onSubmit, mode, toggle }) => {
   const handleSubmit = (event) => {
@@ -24,6 +24,7 @@ const UserForm = ({ user, onSubmit, mode, toggle }) => {
           type="text"
           name="firstName"
           id="firstName"
+          placeholder="Enter First name"
           defaultValue={user?.first_name || ""}
           required
         />
@@ -34,6 +35,7 @@ const UserForm = ({ user, onSubmit, mode, toggle }) => {
           type="text"
           name="lastName"
           id="lastName"
+          placeholder="Enter Last name"
           defaultValue={user?.last_name || ""}
           required
         />
@@ -45,10 +47,11 @@ const UserForm = ({ user, onSubmit, mode, toggle }) => {
           name="email"
           id="email"
           defaultValue={user?.email || ""}
+          placeholder="Enter E-mail"
           required
         />
       </FormGroup>
-      <div className={styles['action-wrapper']}>
+      <div className={styles["action-wrapper"]}>
         <Button type="submit" color="primary">
           {mode === "edit" ? "Update User" : "Create User"}
         </Button>
