@@ -8,8 +8,9 @@ const UserCreateModal = ({ handleCreate }) => {
   const toggle = () => setModal(!modal);
 
   const handleConfirm = async (formData) => {
-    await handleCreate(formData);
     setModal(false);
+    await handleCreate(formData);
+    
   };
 
   return (

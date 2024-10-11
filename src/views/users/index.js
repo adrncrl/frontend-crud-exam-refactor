@@ -26,7 +26,7 @@ function Index() {
 
   return (
     <div>
-      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} closeOnClick /> {/* Add ToastContainer */}
+      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} closeOnClick /> 
 
       <div className={styles['create-modal-wrapper']}>
         <UserCreateModal handleCreate={handleCreateUser} />
