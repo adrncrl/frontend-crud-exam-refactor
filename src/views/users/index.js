@@ -10,24 +10,26 @@ import CustomPagination from "../../components/pagination/CustomPagination";
 import usePagination from "../../components/pagination/usePagination";
 import UserCreateModal from "./UserCreateModal";
 import useCreateUser from "./useCreateUser";
-import styles from './styles.module.scss'
+import { ToastContainer } from "react-toastify"; 
+import "react-toastify/dist/ReactToastify.css"; 
+import styles from './styles.module.scss';
 
 function Index() {
   const { currentPage, itemsPerPage } = usePagination();
-  const { users, loading: fetchLoading, error, totalPages, refetch } = useGetUsers(getList,currentPage,itemsPerPage);
+  const { users, loading: fetchLoading, error, totalPages, refetch } = useGetUsers(getList, currentPage, itemsPerPage);
 
-  const { handleClick: handleCreateUser, loading: createLoading } =useCreateUser(createUser, refetch);
+  const { handleClick: handleCreateUser, loading: createLoading } = useCreateUser(createUser, refetch);
   const { handleClick: handleDeleteUser, loading: deleteLoading } = useDeleteUser(deleteUser, refetch);
-  const { handleClick: handleEditUser, loading: editLoading } = useEditUser( updateUser, refetch);
+  const { handleClick: handleEditUser, loading: editLoading } = useEditUser(updateUser, refetch);
 
-  const isLoading =  fetchLoading || createLoading || editLoading || deleteLoading ;
+  const isLoading = fetchLoading || createLoading || editLoading || deleteLoading;
 
   return (
     <div>
-      {isLoading && <p>Loading...</p>}
-      {error && <p>Error: {error.message}</p>}
+      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} closeOnClick /> {/* Add ToastContainer */}
+
       <div className={styles['create-modal-wrapper']}>
-        <UserCreateModal handleCreate={handleCreateUser}/>
+        <UserCreateModal handleCreate={handleCreateUser} />
       </div>
       
       {users.length > 0 ? (
@@ -37,6 +39,7 @@ function Index() {
           EditModal={UserEditModal}
           handleDelete={handleDeleteUser}
           DeleteModal={UserDeleteModal}
+          isLoading={isLoading}
         />
       ) : (
         <p>No data</p>

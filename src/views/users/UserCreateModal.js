@@ -20,7 +20,7 @@ const UserCreateModal = ({ handleCreate }) => {
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Create User</ModalHeader>
         <ModalBody>
-          <UserForm onSubmit={handleConfirm} toggle={toggle} />
+          <UserForm onSubmit={handleConfirm} toggle={toggle} mode="create" />
         </ModalBody>
       </Modal>
     </div>

@@ -1,9 +1,28 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, FormGroup, Label, Input } from "reactstrap";
 import serialize from "form-serialize";
 import styles from "./styles.module.scss";
 
 const UserForm = ({ user, onSubmit, mode, toggle }) => {
+  const [formData, setFormData] = useState({
+    firstName: user?.first_name || "",
+    lastName: user?.last_name || "",
+    email: user?.email || "",
+  });
+
+  useEffect(() => {
+    setFormData({
+      firstName: user?.first_name || "",
+      lastName: user?.last_name || "",
+      email: user?.email || "",
+    });
+  }, [user]);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -12,9 +31,19 @@ const UserForm = ({ user, onSubmit, mode, toggle }) => {
       form.classList.add("was-validated");
       return false;
     }
-    const formData = serialize(event.target, { hash: true });
-    onSubmit(formData);
+    const serializedData = serialize(form, { hash: true });
+    onSubmit(serializedData);
   };
+
+  const isCreateMode = mode === "create";
+  const isFormEmpty = Object.values(formData).every((value) => !value);
+  const isFormUnchanged = !isCreateMode && (
+    formData.firstName === user?.first_name &&
+    formData.lastName === user?.last_name &&
+    formData.email === user?.email
+  );
+
+  const isSubmitDisabled = isCreateMode ? (isFormEmpty) : isFormUnchanged;
 
   return (
     <form onSubmit={handleSubmit}>
@@ -25,7 +54,8 @@ const UserForm = ({ user, onSubmit, mode, toggle }) => {
           name="firstName"
           id="firstName"
           placeholder="Enter First name"
-          defaultValue={user?.first_name || ""}
+          value={formData.firstName}
+          onChange={handleChange}
           required
         />
       </FormGroup>
@@ -36,7 +66,8 @@ const UserForm = ({ user, onSubmit, mode, toggle }) => {
           name="lastName"
           id="lastName"
           placeholder="Enter Last name"
-          defaultValue={user?.last_name || ""}
+          value={formData.lastName}
+          onChange={handleChange}
           required
         />
       </FormGroup>
@@ -46,13 +77,14 @@ const UserForm = ({ user, onSubmit, mode, toggle }) => {
           type="email"
           name="email"
           id="email"
-          defaultValue={user?.email || ""}
+          value={formData.email}
           placeholder="Enter E-mail"
+          onChange={handleChange}
           required
         />
       </FormGroup>
       <div className={styles["action-wrapper"]}>
-        <Button type="submit" color="primary">
+        <Button type="submit" color="primary" disabled={isSubmitDisabled}>
           {mode === "edit" ? "Update User" : "Create User"}
         </Button>
         <Button color="secondary" onClick={toggle}>

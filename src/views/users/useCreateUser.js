@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 function useCreateUser(create, triggerRefetch) {
   const [success, setSuccess] = useState(false);
@@ -14,9 +15,11 @@ function useCreateUser(create, triggerRefetch) {
       await create(formData);
       triggerRefetch();
       setSuccess(true);
+      toast.success("User created successfully!"); 
     } catch (error) {
       console.log("Edit error:", error);
       setError(error);
+      toast.error("Failed to create user: " + (error.message || "An error occurred.")); 
     } finally {
       setLoading(false);
     }
